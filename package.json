@@ -1,0 +1,116 @@
+{
+  "name": "eslint-plugin-lwc-augmented",
+  "version": "1.0.0",
+  "description": "Eslint plugin for LWC where we augment some rules and code convention",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "bump-release": "npm run bumping -- --unpreid",
+    "bump:major": "npm run bumping -- --increment major",
+    "bump:minor": "npm run bumping -- --increment minor",
+    "bump:patch": "npm run bumping -- --increment patch",
+    "bump:major:beta": "npm run bumping -- --increment major --preid beta",
+    "bump:minor:beta": "npm run bumping -- --increment minor --preid beta",
+    "bump:patch:beta": "npm run bumping -- --increment patch --preid beta",
+    "bump:prerelease:beta": "npm run bumping -- --increment prerelease --preid beta",
+    "bumping": "node ./node_modules/npmversion/bin/npmversion",
+    "style:check": "npm run prettier -- --check \"./lib/**/*.js\"",
+    "style:fix": "npm run prettier -- --write \"./lib/**/*.js\"",
+    "prettier": "node ./node_modules/prettier/bin-prettier.js",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest ./test --config jest.config.js --runInBand",
+    "test:snapshot": "npm test -- --updateSnapshot"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rochejul/eslint-plugin-lwc-augmented.git"
+  },
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "lwc"
+  ],
+  "author": {
+    "name": "Julien Roche",
+    "email": "roche.jul@gmail.com",
+    "url": "http://julienroche.blogspot.fr/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rochejul/eslint-plugin-lwc-augmented/issues"
+  },
+  "homepage": "https://github.com/rochejul/eslint-plugin-lwc-augmented#readme",
+  "devDependencies": {
+    "@babel/eslint-parser": "7.18.2",
+    "@babel/parser": "7.18.8",
+    "@commitlint/cli": "8.3.5",
+    "@commitlint/config-conventional": "8.3.4",
+    "@prettier/plugin-xml": "1.2.0",
+    "commitizen": "4.0.3",
+    "cz-conventional-changelog": "3.0.2",
+    "eslint": "8.16.0",
+    "eslint-plugin-babel": "5.3.1",
+    "eslint-plugin-import": "2.25.4",
+    "eslint-plugin-jest": "26.1.1",
+    "git-precommit-checks": "3.0.0",
+    "husky": "3.0.5",
+    "jest": "27.5.1",
+    "jest-cli": "27.5.1",
+    "jest-html-reporter": "3.4.2",
+    "jest-snapshot": "27.5.1",
+    "lint-staged": "10.0.0",
+    "lwc": "2.14.0",
+    "npmversion": "1.7.0",
+    "prettier": "2.5.1",
+    "prettier-plugin-apex": "1.10.0"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-push": "git-precommit-checks && lint-staged"
+    }
+  },
+  "git-precommit-checks": {
+    "rules": [
+      {
+        "filter": "\\.js$",
+        "nonBlocking": "true",
+        "message": "You’ve got leftover `console.log`",
+        "regex": "console\\.log"
+      },
+      {
+        "message": "You’ve got leftover conflict markers",
+        "regex": "/^[<>|=]{4,}/m"
+      },
+      {
+        "message": "You have unfinished devs",
+        "nonBlocking": "true",
+        "regex": "(?:FIXME|TODO)"
+      }
+    ]
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "engines": {
+    "node": ">=14.17.0",
+    "npm": ">=6.14.11"
+  },
+  "volta": {
+    "node": "14.17.0",
+    "npm": "6.14.11",
+    "yarn": "1.22.10"
+  }
+}
