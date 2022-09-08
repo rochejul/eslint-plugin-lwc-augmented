@@ -39,3 +39,4 @@ target
 # IDE project folder
 .idea
 .history
+.vscode

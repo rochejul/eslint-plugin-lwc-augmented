@@ -1,2 +1,3 @@
 test/fake-files/**/*.js
 examples/
+babel.config.js
